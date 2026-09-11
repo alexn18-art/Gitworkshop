@@ -31,14 +31,14 @@ public class PlayMovement : MonoBehaviour
             if (GroundCheck.isGrounded)
             {
                 canDoubleJump = true;
-                rd2D.velocity = new Vector2(rd2D.velocity.x, jumpSpeed);
+                rd2D.linearVelocity = new Vector2(rd2D.linearVelocity.x, jumpSpeed);
             }
             else
             {
                 if (canDoubleJump)
                 {
                     animator.SetBool("DoubleJump", true);
-                    rd2D.velocity = new Vector2(rd2D.velocity.x, jumpSpeed);
+                    rd2D.linearVelocity = new Vector2(rd2D.linearVelocity.x, jumpSpeed);
                     canDoubleJump = false; 
                 }
             }
@@ -56,11 +56,11 @@ public class PlayMovement : MonoBehaviour
             animator.SetBool("Falling", false);
         }
 
-        if (rd2D.velocity.y < 0)
+        if (rd2D.linearVelocity.y < 0)
         {
             animator.SetBool("Falling", true);
         }
-        else if(rd2D.velocity.y > 0)
+        else if(rd2D.linearVelocity.y > 0)
         {
             animator.SetBool("Falling", false);
         }
@@ -70,32 +70,32 @@ public class PlayMovement : MonoBehaviour
     {
         if(Input.GetKey("d") || Input.GetKey("right"))
         {
-            rd2D.velocity = new Vector2(runSpeed, rd2D.velocity.y);
+            rd2D.linearVelocity = new Vector2(runSpeed, rd2D.linearVelocity.y);
             spriteRenderer.flipX = false;
             animator.SetBool("Run", true);
         }
         else if (Input.GetKey("a") || Input.GetKey("left"))
         {
-            rd2D.velocity = new Vector2(-runSpeed, rd2D.velocity.y);
+            rd2D.linearVelocity = new Vector2(-runSpeed, rd2D.linearVelocity.y);
             spriteRenderer.flipX = true;
             animator.SetBool("Run", true);
         }
         else
         {
-            rd2D.velocity = new Vector2(0, rd2D.velocity.y);
+            rd2D.linearVelocity = new Vector2(0, rd2D.linearVelocity.y);
             animator.SetBool("Run", false);
         }
    
         if (betterJump)
         {
-            if (rd2D.velocity.y < 0)
+            if (rd2D.linearVelocity.y < 0)
             {
-                rd2D.velocity += Vector2.up * Physics2D.gravity.y * (fallMultipiler) * Time.deltaTime;
+                rd2D.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultipiler) * Time.deltaTime;
             }
 
-            if (rd2D.velocity.y > 0 && !Input.GetKey("space"))
+            if (rd2D.linearVelocity.y > 0 && !Input.GetKey("space"))
             {
-                rd2D.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier) * Time.deltaTime;
+                rd2D.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier) * Time.deltaTime;
             }
         }
     }
